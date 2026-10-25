@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#EDF0E6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17181C" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Style Book">
+<meta name="description" content="Decorating ideas for every Stardew Valley and Ridgeside spouse, plus a gallery of your finished farms.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+</head>
+<body>
+<title>Spouse Style Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Rethink+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: almanac page — roster of spouses on the left, one style card on the right; portfolio is a gallery grid with a progress strip. */
+:root{
+  --bg:#EDF0E6; --surface:#F8F9F3; --sunk:#E2E6D9; --line:#C9CFBC;
+  --ink:#24212C; --muted:#5E6157; --accent:#C9861F; --accent-ink:#3A2606;
+  --leaf:#4C7A45; --plum:#6B4C7A; --danger:#A23B2E;
+  --display:"Pixelify Sans", "Courier New", monospace;
+  --body:"Rethink Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r:10px;
+  --e-low-bg:#DCEBD5; --e-low:#2F5A27; --e-med-bg:#F5E6C2; --e-med:#6E4B0A; --e-high-bg:#F3D6D1; --e-high:#7A2A1F;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17181C; --surface:#202228; --sunk:#292C33; --line:#3A3D45;
+  --ink:#ECEAF1; --muted:#A3A6AE; --accent:#E8AC48; --accent-ink:#2A1A02;
+  --leaf:#86B57C; --plum:#B395C4; --danger:#E07B6C; --e-low-bg:#24382A; --e-low:#A6D69A; --e-med-bg:#3C3220; --e-med:#EFC57A; --e-high-bg:#3F2522; --e-high:#F0A497; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17181C; --surface:#202228; --sunk:#292C33; --line:#3A3D45;
+  --ink:#ECEAF1; --muted:#A3A6AE; --accent:#E8AC48; --accent-ink:#2A1A02;
+  --leaf:#86B57C; --plum:#B395C4; --danger:#E07B6C; --e-low-bg:#24382A; --e-low:#A6D69A; --e-med-bg:#3C3220; --e-med:#EFC57A; --e-high-bg:#3F2522; --e-high:#F0A497; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-block:20px 48px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:18px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(28px,4.5vw,40px);line-height:1.05;margin:0;letter-spacing:.5px;text-wrap:balance}
+.sub{color:var(--muted);margin:4px 0 0;max-width:60ch}
+.tabs{display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:999px}
+.tabs button{font:600 14px var(--body);border:0;background:transparent;color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0 / .12)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Inspire */
+.inspire{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:820px){.inspire{grid-template-columns:minmax(0,1fr)}}
+.roster{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+@media (max-width:820px){.roster{position:static}}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{font:500 13px var(--body);border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 11px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.surprise-row{display:flex;gap:6px;margin-bottom:12px}
+.surprise{flex:1;font:700 15px var(--display);letter-spacing:.4px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:10px;cursor:pointer;text-align:center}
+.surprise:hover{filter:brightness(1.05)}
+.surprise-alt{font:500 13px var(--body);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;cursor:pointer}
+.surprise-alt:hover{background:var(--sunk)}
+.group-label{font:500 11px var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:10px 0 6px}
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px}
+.name{display:flex;align-items:center;gap:8px;font:500 14px var(--body);text-align:left;background:transparent;border:1px solid transparent;color:var(--ink);padding:5px 6px;border-radius:7px;cursor:pointer;min-width:0}
+.name:hover{background:var(--sunk)}
+.name[aria-current="true"]{background:var(--sunk);border-color:var(--line)}
+.dot{flex:none;width:18px;height:18px;border-radius:4px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;box-shadow:inset 0 0 0 1px rgb(0 0 0 / .15)}
+.dot i{display:block}
+.name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.name .done{margin-left:auto;color:var(--leaf);font-size:12px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;min-width:0}
+.card-head{padding:22px 24px 18px;display:grid;gap:6px;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 12px var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.tag{font:600 11px var(--body);letter-spacing:.06em;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--ink);text-transform:uppercase}
+.card h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,44px);margin:0;line-height:1}
+.vibe{font-size:17px;margin:2px 0 0;max-width:62ch}
+.swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));height:auto}
+.sw{padding:42px 10px 10px;font:500 12px var(--body);display:flex;flex-direction:column;justify-content:flex-end;min-height:96px;cursor:pointer;border:0;text-align:left}
+.sw small{opacity:.8;font-variant-numeric:tabular-nums}
+.card-body{padding:20px 24px 24px;display:grid;gap:22px}
+.moods{display:flex;flex-wrap:wrap;gap:6px}
+.mood{font:500 13px var(--body);padding:4px 10px;border-radius:6px;border:1px dashed var(--line)}
+.sec h3{font:700 15px var(--display);letter-spacing:.4px;margin:0 0 8px;display:flex;align-items:center;gap:10px}
+.sec h3 .rule{flex:1;height:1px;background:var(--line)}
+.map{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.map b{font:700 18px var(--display)}
+.rooms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.rooms{grid-template-columns:minmax(0,1fr)}}
+.room{background:var(--sunk);border-radius:8px;padding:12px 14px;display:grid;gap:6px;align-content:start}
+.room .lbl{font:600 11px var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);display:flex;gap:6px;align-items:center}
+.room p{margin:0}
+.reroll{justify-self:start;font:500 12px var(--body);background:none;border:0;color:var(--plum);padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.gifts{display:flex;flex-wrap:wrap;gap:6px 8px}
+.gift{font-size:14px;padding:3px 10px 3px 8px;border-radius:999px;background:var(--sunk)}
+.gift::before{content:"♥";color:#D2465F;margin-right:6px}
+.seasons{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.season-text{margin:0;max-width:70ch}
+.search-row{display:flex;flex-wrap:wrap;gap:6px}
+.kw{font:500 13px ui-monospace,"SFMono-Regular",Menlo,monospace;padding:4px 10px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.kw:hover{border-color:var(--accent)}
+.hint{color:var(--muted);font-size:13px;margin:6px 0 0}
+.twist{display:flex;gap:12px;align-items:flex-start;background:var(--sunk);border-radius:8px;padding:12px 14px}
+.twist p{margin:0;flex:1;font-size:16px}
+.card-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px 24px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.btn{font:600 14px var(--body);border-radius:8px;padding:8px 14px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.danger{color:var(--danger);border-color:currentColor;background:transparent}
+.btn.sm{font:500 12px var(--body);padding:5px 10px;border-radius:6px}
+.btn.fav-toggle{font:600 12px var(--body);padding:5px 10px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;transition:background .15s,color .15s}
+.btn.fav-toggle:hover{background:var(--sunk)}
+.btn.fav-toggle.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+a{color:var(--plum)}
+
+/* Effort & mod tags */
+.effort{font:500 11px var(--body);padding:2px 8px;border-radius:999px;display:inline-flex;align-items:center;gap:3px}
+.effort.low{background:var(--e-low-bg);color:var(--e-low)}
+.effort.med{background:var(--e-med-bg);color:var(--e-med)}
+.effort.high{background:var(--e-high-bg);color:var(--e-high)}
+.open-fav{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font:600 14px var(--body)}
+.open-fav:hover{text-decoration:underline}
+.open-fav:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mod-tag{font:500 10px var(--body);padding:2px 6px;border-radius:4px;background:var(--plum);color:var(--bg);letter-spacing:.04em}
+.mod-note{font-size:12px;color:var(--muted);margin-top:4px}
+.mod-note span{display:inline-flex;align-items:center;gap:3px}
+
+/* Favorites panel */
+.fab-fav{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));right:calc(20px + env(safe-area-inset-right,0px));width:48px;height:48px;border-radius:50%;background:var(--accent);color:var(--accent-ink);border:0;font-size:20px;cursor:pointer;z-index:100;box-shadow:0 2px 8px rgb(0 0 0 / .25);display:flex;align-items:center;justify-content:center}
+.fab-fav:hover{filter:brightness(1.05)}
+.fab-fav .badge{position:absolute;top:-4px;right:-4px;background:var(--danger);color:#fff;font:700 11px var(--body);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.fab-fav .badge:empty{display:none}
+.fav-overlay{position:fixed;inset:0;background:rgb(0 0 0 / .3);z-index:150;opacity:0;pointer-events:none;transition:opacity .2s}
+.fav-overlay.open{opacity:1;pointer-events:auto}
+.fav-panel{position:fixed;right:0;top:0;bottom:0;width:min(400px,92vw);background:var(--surface);border-left:1px solid var(--line);z-index:200;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s ease}
+.fav-panel.open{transform:translateX(0)}
+.fav-panel-header{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.fav-panel-header h3{margin:0;font:700 18px var(--display);font-size:16px}
+.fav-panel-close{font:600 18px var(--body);border:0;background:transparent;color:var(--ink);cursor:pointer;padding:4px 8px;border-radius:6px}
+.fav-panel-close:hover{background:var(--sunk)}
+#fav-list{flex:1;overflow-y:auto;padding:12px 18px}
+.fav-item{padding:12px 0;border-bottom:1px solid var(--line)}
+.fav-item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.fav-item-head strong{font:600 14px var(--body);display:flex;align-items:center;gap:6px}
+.fav-item-head strong .dot-sm{width:14px;height:14px;border-radius:3px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex:none}
+.fav-item-head strong .dot-sm i{display:block}
+.fav-item-head .remove-fav{font:600 11px var(--body);border:0;background:transparent;color:var(--danger);cursor:pointer;padding:2px 6px;border-radius:4px}
+.fav-item-head .remove-fav:hover{text-decoration:underline}
+.fav-item p{margin:0 0 4px;font-size:13px;color:var(--ink)}
+.fav-item small{color:var(--muted);font-size:11px}
+.fav-empty{text-align:center;color:var(--muted);padding:48px 0;font-size:14px}
+.fav-empty b{display:block;color:var(--ink);font:700 16px var(--display);margin-bottom:6px}
+
+/* Portfolio */
+.progress{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:10px;margin-bottom:16px}
+.progress-top{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between}
+.progress-top b{font:700 22px var(--display);font-variant-numeric:tabular-nums}
+.bar{display:grid;grid-template-columns:repeat(35,1fr);gap:2px}
+.bar i{height:10px;border-radius:2px;background:var(--sunk)}
+.bar i.on{background:var(--leaf)}
+.pf-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+select,input[type=text],textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;max-width:100%}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.farm{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.shots{display:grid;grid-auto-flow:column;grid-auto-columns:100%;overflow-x:auto;scroll-snap-type:x mandatory;aspect-ratio:16/10;max-width:100%;background:var(--sunk)}
+.shots img{width:100%;height:100%;object-fit:cover;scroll-snap-align:start;display:block}
+.shots .ph{display:grid;place-items:center;color:var(--muted);font-size:13px}
+.farm-body{padding:12px 14px 14px;display:grid;gap:4px}
+.farm-body h4{margin:0;font:700 17px var(--display)}
+.farm-meta{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px}
+.farm-body p{margin:4px 0 0;font-size:14px}
+.farm-actions{display:flex;gap:8px;margin-top:8px}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:28px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font:700 18px var(--display);margin-bottom:4px}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:0;width:min(520px,calc(100vw - 32px))}
+dialog::backdrop{background:rgb(0 0 0 / .45)}
+.form{display:grid;gap:12px;padding:20px}
+.form h3{margin:0;font:700 20px var(--display)}
+.form label{display:grid;gap:4px;font-size:13px;font-weight:600}
+.form .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:480px){.form .row{grid-template-columns:1fr}}
+.form-actions{display:flex;justify-content:flex-end;gap:8px}
+.status{font-size:13px;color:var(--muted);min-height:1.2em;margin:0}
+/* Room preview + seasons */
+.room-preview{display:grid;gap:8px}
+.room-preview canvas{width:100%;max-width:100%;aspect-ratio:96/54;image-rendering:pixelated;image-rendering:crisp-edges;border-radius:8px;display:block;box-shadow:inset 0 0 0 1px var(--line);background:var(--sunk)}
+.room-cap{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted)}
+.room-cap i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;box-shadow:inset 0 0 0 1px rgb(0 0 0 / .2)}
+#wash{position:fixed;inset:0;pointer-events:none;z-index:0;transition:background .6s}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1}
+.season-pill{font:500 12px var(--body);color:var(--muted);display:flex;align-items:center;gap:6px}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:300;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Phone */
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{padding-top:env(safe-area-inset-top,0px)}
+@media (pointer:coarse){
+  .chip,.kw,.btn,.btn.sm,.fav-toggle,.tabs button{min-height:40px}
+  .name{min-height:40px}
+  .reroll{padding:6px 0}
+  .names{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+}
+@media (max-width:820px){
+  .roster{max-height:none}
+  .card-head{padding:18px 16px 14px}
+  .card-body{padding:16px}
+  .card-foot{padding:12px 16px}
+  .swatches .sw{min-height:78px;padding:30px 8px 8px;font-size:11px}
+  .tabs{width:100%}
+  .tabs button{flex:1}
+  header.top{align-items:stretch}
+}
+@media (max-width:480px){
+  .swatches{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .sw small{display:none}
+  .card-foot{flex-direction:column;align-items:stretch}
+  .card-foot > div{justify-content:stretch}
+  .card-foot > div .btn,.card-foot > div .fav-toggle{flex:1}
+}
+@media (display-mode: standalone){ .install-tip{display:none!important} }
+.install-tip{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px;margin-bottom:14px;font-size:14px}
+.install-tip p{margin:0;flex:1}
+.install-tip button{font:600 13px var(--body);border:0;background:transparent;color:var(--muted);cursor:pointer;padding:6px}
+
+.roster-toggle{display:none}
+@media (max-width:820px){
+  .roster-toggle{display:flex;width:100%;align-items:center;gap:6px;font:500 15px var(--body);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer;min-height:44px}
+  .roster-toggle span{margin-left:auto;transition:transform .2s}
+  .roster-toggle[aria-expanded="true"] span{transform:rotate(180deg)}
+  .roster:not(.open) #roster-panel{display:none}
+  .roster.open #roster-panel{margin-top:12px}
+}
+/* Print */
+@media print{
+  body{background:#fff!important;color:#000!important;font-size:11pt}
+  #wash,#fx,.fab-fav,.fav-overlay,.fav-panel,#tab-inspire,#tab-portfolio,.roster,.twist,.kw,.reroll,.fav-toggle,.surprise,.filters,.seasons,.moods,.search-row{display:none!important}
+  .wrap{max-width:100%!important;padding:0!important}
+  .tabs{display:none!important}
+  .card{border:none!important;box-shadow:none!important}
+  .card-head{border-bottom:2px solid #000}
+  .card h2{font-size:24pt}
+  .swatches{grid-template-columns:repeat(5,1fr)}
+  .sw{border:1px solid #999;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .card-body{gap:16px}
+  .sec{page-break-inside:avoid}
+  .rooms{grid-template-columns:1fr}
+  .room{border:1px solid #999}
+  .room-preview canvas{border:1px solid #999;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .gifts,.search-row{display:flex!important}
+  .gift,.kw{border:1px solid #999;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .effort,.mod-tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-header{display:block!important;text-align:center;margin-bottom:12px;font-family:var(--display);font-size:18pt}
+  .print-footer{display:block!important;text-align:center;margin-top:12px;font-size:9pt;color:#666}
+  .print-header,.print-footer{display:none}
+}
+</style>
+
+<div id="wash" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Spouse Style Book</h1>
+      <p class="sub">Decorating ideas for every Pelican Town and Ridgeside spouse, and a gallery for the farms you finish.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-inspire" aria-selected="true" data-view="inspire">Ideas</button>
+      <button role="tab" id="tab-portfolio" aria-selected="false" data-view="portfolio">Portfolio</button>
+    </div>
+  </header>
+
+  <div class="install-tip" id="install-tip" hidden><p>To install on iPhone: tap <b>Share</b>, then <b>Add to Home Screen</b>.</p><button id="install-tip-x" aria-label="Dismiss">Got it</button></div>
+  <section id="view-inspire" class="inspire">
+    <aside class="roster">
+      <div class="surprise-row">
+        <button class="surprise" id="surprise">Surprise me</button>
+        <button class="surprise-alt" id="surprise-undesign" title="Pick a spouse you haven't designed yet">New to me</button>
+      </div>
+      <button class="roster-toggle" id="roster-toggle" aria-expanded="false" aria-controls="roster-panel">Choose spouse: <b id="roster-current"></b><span aria-hidden="true">▾</span></button>
+      <div id="roster-panel">
+      <div class="filters" role="group" aria-label="Filter spouses">
+        <button class="chip" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" data-f="pelican" aria-pressed="false">Pelican Town</button>
+        <button class="chip" data-f="ridgeside" aria-pressed="false">Ridgeside</button>
+        <button class="chip" data-f="todo" aria-pressed="false">Not designed yet</button>
+      </div>
+      <div id="roster"></div>
+      </div>
+    </aside>
+    <article class="card" id="card"></article>
+  </section>
+
+  <section id="view-portfolio" hidden>
+    <div class="progress">
+      <div class="progress-top"><span><b id="pcount">0</b> of 35 spouses designed</span><span class="hint" id="pnote">Each green block is a spouse with at least one finished farm.</span></div>
+      <div class="bar" id="pbar"></div>
+    </div>
+    <div class="pf-tools">
+      <select id="pf-filter" aria-label="Show farms for"><option value="">All spouses</option></select>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><button class="btn" id="export">Back up farms</button><label class="btn" for="import" style="display:inline-flex;align-items:center">Restore backup</label><input type="file" id="import" accept=".json,application/json" hidden><button class="btn primary" id="add-farm" hidden>Add a finished farm</button></div>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+</div>
+
+<dialog id="dlg">
+  <form class="form" id="farm-form" method="dialog">
+    <h3>Add a finished farm</h3>
+    <label>Spouse<select id="f-spouse" required></select></label>
+    <label>Farm name<input type="text" id="f-title" maxlength="60" placeholder="Rainy Basement Retreat" required></label>
+    <div class="row">
+      <label>Season<select id="f-season"><option>Spring</option><option>Summer</option><option>Fall</option><option>Winter</option></select></label>
+      <label>Farm map<select id="f-map"><option>Standard</option><option>Riverland</option><option>Forest</option><option>Hill-top</option><option>Wilderness</option><option>Four Corners</option><option>Beach</option><option>Meadowlands</option></select></label>
+    </div>
+    <label>Screenshots (up to 4)<input type="file" id="f-files" accept="image/png,image/jpeg,image/webp,image/gif" multiple></label>
+    <label>Notes<textarea id="f-notes" rows="3" maxlength="500" placeholder="Mods used, favorite corner, what you'd change next time"></textarea></label>
+    <p class="status" id="f-status"></p>
+    <div class="form-actions">
+      <button type="button" class="btn" id="f-cancel">Cancel</button>
+      <button type="submit" class="btn primary" id="f-save">Save farm</button>
+    </div>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<!-- Favorites -->
+<div class="fav-overlay" id="fav-overlay"></div>
+<div class="fav-panel" id="fav-panel">
+  <div class="fav-panel-header">
+    <h3>♥ Saved Ideas</h3>
+    <button class="fav-panel-close" id="fav-close" aria-label="Close">✕</button>
+  </div>
+  <div id="fav-list"></div>
+</div>
+<button class="fab-fav" id="fab-fav" aria-label="Open saved ideas" title="Saved Ideas">♥<span class="badge" id="fav-badge"></span></button>
+
+<script>
+const SEASONS = {
+  Spring:"Soften the palette with blossom pinks and fresh greens. Add tulip and flower beds along paths, and open the windows with light curtains.",
+  Summer:"Use the brightest version of the palette. Bring in water (ponds, fountains, fish tanks), sunflowers and bold fabrics.",
+  Fall:"Shift every color a step warmer. Pumpkins on the porch, hay bales, orange-leaf trees and lanterns along the paths.",
+  Winter:"Cool the palette down and add evergreens, string lights and candles. Thick rugs inside, snow-cleared stone paths outside."
+};
+const P = (h,n)=>[h,n];
+const SP = [
+/* ---------- Pelican Town ---------- */
+{id:"abigail",name:"Abigail",g:"pelican",vibe:"Spooky, adventurous gamer who loves purple and the mines.",
+ pal:[P("#6B4C9A","Amethyst"),P("#2D2340","Mine Shaft"),P("#A88BD1","Lilac"),P("#D98A2B","Jack-o'-lantern"),P("#4F6B5A","Cave Moss")],
+ moods:["moody","playful","mystical","adventurous"],map:["Wilderness","Monsters at night suit someone who carries a sword into the mines."],
+ rooms:{bedroom:["Deep purple walls, a game console corner, and her flute on a stand.","A crystal-ball table surrounded by candles and stacked spellbooks."],living:["A board-game table with dice and snacks for game night.","Shelves of geodes and minerals, like a little mine museum."],outdoors:["A pumpkin patch lit by jack-o'-lanterns along a winding path.","A ruined stone circle with a 'cave mouth' built from boulders and dark flooring."]},
+ gifts:["Amethyst","Pumpkin","Chocolate Cake","Spicy Eel","Blackberry Cobbler","Banana Pudding"],
+ kw:["purple","candle","Wizard","arcade","pumpkin","crystal"], 
+ effort:{bedroom:"med",living:"med",outdoors:"low"},
+ tw:["Abigail runs a fortune-teller tent at the fair.","A cozy adventurer's base camp after a long mine run.","Her old bedroom grown into a whole witchy cottage."]},
+{id:"alex",name:"Alex",g:"pelican",vibe:"Sporty gridball player with a soft spot for his family.",
+ pal:[P("#1F4E8C","Team Blue"),P("#E2A33B","Trophy Gold"),P("#2E7D4F","Field Green"),P("#E9E4DA","Chalk Line"),P("#8C2F39","Varsity Red")],
+ moods:["sporty","sunny","upbeat","family"],map:["Standard","Wide, flat ground for marking out a gridball field."],
+ rooms:{bedroom:["A trophy shelf and team pennants over the bed.","A workout corner with weights and a big mirror."],living:["A grandma-style kitchen ready for a complete breakfast.","A family photo wall honoring his grandparents."],outdoors:["A gridball field marked out with fence lines.","A backyard BBQ with picnic tables and string lights."]},
+ gifts:["Complete Breakfast","Salmon Dinner"],kw:["Diner","Retro","blue","rug","lamp"], 
+ effort:{bedroom:"low",living:"low",outdoors:"low"},
+ tw:["Alex's championship tailgate party.","A beach gym with a smoothie bar.","A backyard sports camp for the village kids."]},
+{id:"elliott",name:"Elliott",g:"pelican",vibe:"Romantic novelist who lives in a cabin by the sea.",
+ pal:[P("#2F5D62","Sea Glass"),P("#C9B79C","Driftwood"),P("#6B2E3C","Burgundy"),P("#E8D9B5","Old Page"),P("#A3B9C9","Sea Fog")],
+ moods:["romantic","literary","coastal","dramatic"],map:["Beach","He already lives on the sand; the farm should hear the waves."],
+ rooms:{bedroom:["A writing desk at the window, stacked with manuscripts.","Burgundy and dark wood, like an old library."],living:["A piano in the corner lit by candles.","Floor-to-ceiling bookshelves around a fireplace."],outdoors:["A seaside writing gazebo looking out at the water.","A lobster dock with crab pots and lanterns."]},
+ gifts:["Crab Cakes","Duck Feather","Lobster","Pomegranate","Tom Kha Soup","Squid Ink Ravioli"],kw:["piano","bookcase","fireplace","candle","Luxury"], 
+ effort:{bedroom:"med",living:"high",outdoors:"med"},
+ tw:["Elliott's book-launch party.","A lighthouse keeper's cottage.","A writing retreat deep in the woods."]},
+{id:"harvey",name:"Harvey",g:"pelican",vibe:"Kind, slightly anxious doctor who loves radios and model airplanes.",
+ pal:[P("#3D7A6E","Scrubs"),P("#EDE7DA","Clinic White"),P("#8A6E4B","Coffee"),P("#3B4A6B","Navy"),P("#C9A23F","Brass")],
+ moods:["calm","careful","retro","cozy"],map:["Riverland","Water all around makes for a quiet, peaceful farm."],
+ rooms:{bedroom:["Model airplanes hanging from the ceiling.","A radio on the nightstand and a shelf of medical journals."],living:["A coffee bar with the pot always on.","A calm sitting room full of plants."],outdoors:["A little airstrip with a windsock.","A herb garden laid out in neat beds."]},
+ gifts:["Coffee","Pickles","Super Meal","Truffle Oil","Wine"],kw:["lamp","bookcase","plant","Country","green"], 
+ effort:{bedroom:"med",living:"low",outdoors:"low"},
+ tw:["A pilot's hangar in the barn.","The farmhouse as a cozy wellness clinic.","Radio night on the riverbank."]},
+{id:"sam",name:"Sam",g:"pelican",vibe:"Goofy musician and skateboarder who never stops having fun.",
+ pal:[P("#F2C230","Electric Yellow"),P("#2D2D3A","Stage Black"),P("#3F88C5","Denim"),P("#E85D75","Neon Pink"),P("#9BC53D","Lime")],
+ moods:["loud","fun","retro","musical"],map:["Four Corners","One corner each for a stage, a skate park and a garden."],
+ rooms:{bedroom:["Band posters, a guitar stand and a lived-in bed.","A retro arcade corner."],living:["A rehearsal space with drums and amps.","A pizza table next to a jukebox."],outdoors:["A backyard stage under string lights.","A skate park built from stone and path flooring."]},
+ gifts:["Cactus Fruit","Maple Bar","Pizza","Tigerseye"],kw:["arcade","Retro","jukebox","Diner","lamp"], 
+ effort:{bedroom:"med",living:"high",outdoors:"high"},
+ tw:["Sam's band headlines a farm festival.","A 90s skate-shop farmhouse.","Sam and Vincent's backyard adventure land."]},
+{id:"sebastian",name:"Sebastian",g:"pelican",vibe:"Introverted programmer who loves rain, frogs and late nights.",
+ pal:[P("#2B2F3A","Basement"),P("#5C4B8A","Dusk"),P("#6E8C7D","Frog Green"),P("#A9B4C2","Rain Grey"),P("#D4A657","Desk Lamp")],
+ moods:["moody","quiet","techy","rainy"],map:["Hill-top","Cliffs and quarry rock give a gloomy, rocky look."],
+ rooms:{bedroom:["A dark room with a computer desk glowing in the corner.","A frog tank and a tabletop game set up for a campaign."],living:["A game table ready for a night with Sam and Abigail.","A rainy-day reading nook with dim lamps."],outdoors:["A motorcycle garage in a shed.","A frog pond with lily pads and mossy stones."]},
+ gifts:["Frozen Tear","Obsidian","Pumpkin Soup","Sashimi","Void Egg"],kw:["dark","lamp","Retro","purple","tank"], 
+ effort:{bedroom:"med",living:"low",outdoors:"low"},
+ tw:["A rainy-day hideout where it always feels like rain.","A cyberpunk farmhouse.","A frog sanctuary."]},
+{id:"shane",name:"Shane",g:"pelican",vibe:"Rough around the edges, soft on chickens and his goddaughter Jas.",
+ pal:[P("#B03A2E","Hot Pepper"),P("#3E5C76","Work Shirt"),P("#E9D8A6","Straw"),P("#5E4B3C","Barn Wood"),P("#F3B33D","Yolk")],
+ moods:["scruffy","warm","rustic","honest"],map:["Meadowlands","It starts you off with chickens, his favorite animals."],
+ rooms:{bedroom:["A simple bed, a TV and a photo of Jas and Marnie.","A tidied-up version of his old room, with a plant."],living:["A kitchen bar for beer and hot sauce.","A cozy couch facing a TV."],outdoors:["A big decorated chicken coop full of blue chickens.","Rows of hot peppers next to a picnic table."]},
+ gifts:["Beer","Hot Pepper","Pepper Poppers","Pizza"],kw:["TV","couch","Country","rug","red"], 
+ effort:{bedroom:"low",living:"low",outdoors:"low"},
+ tw:["Shane's backyard chicken festival.","A calm recovery cabin full of plants.","Jas's dream playroom."]},
+{id:"emily",name:"Emily",g:"pelican",vibe:"Colorful, spiritual seamstress: crystals, cloth and good energy.",
+ pal:[P("#2FA4A8","Teal"),P("#E25D8F","Rose"),P("#F2C14E","Saffron"),P("#7D5BA6","Violet"),P("#F5EFE6","Linen")],
+ moods:["eclectic","bright","spiritual","crafty"],map:["Meadowlands","Grassy pasture for sheep, so there's always wool."],
+ rooms:{bedroom:["Mismatched rugs layered together and crystals on every windowsill.","A sewing nook with fabric bolts and a loom."],living:["Bright patterned wallpaper with a dozen houseplants.","A meditation corner with candles and gems."],outdoors:["A sheep pasture ringed with flowers in every color.","A crystal garden with gems along a winding path."]},
+ gifts:["Amethyst","Aquamarine","Cloth","Emerald","Jade","Ruby","Survival Burger","Topaz","Wool"],kw:["rug","loom","plant","candle","crystal"], 
+ effort:{bedroom:"high",living:"med",outdoors:"high"},
+ tw:["Emily's dream boutique, with the farmhouse as the shop floor.","A rainbow room, one wall per color.","A weekend wellness-retreat farm."]},
+{id:"haley",name:"Haley",g:"pelican",vibe:"Sunny, stylish photographer who comes to love the farm.",
+ pal:[P("#F6C445","Sunflower"),P("#F4A6B8","Blush"),P("#FBF5F0","Seashell"),P("#7FB7D8","Sky"),P("#C9A27E","Sand")],
+ moods:["bright","girly","polished","beachy"],map:["Beach","Sand, sea and good light for photos."],
+ rooms:{bedroom:["A pastel room with a vanity, mirror and framed photos.","Pink sheets and fresh flowers by the bed."],living:["A gallery wall of photos and a darkroom corner.","A white dining table with a fruit bowl and pink cake."],outdoors:["A sunflower field framing a photo spot.","A beach picnic area with umbrellas and palms."]},
+ gifts:["Coconut","Fruit Salad","Pink Cake","Sunflower"],kw:["pink","sunflower","Tropical","palm","painting"], 
+ effort:{bedroom:"low",living:"med",outdoors:"low"},
+ tw:["Haley opens a portrait studio in the barn.","A summer magazine shoot on the beach.","Her 'I actually love animals now' coop makeover."]},
+{id:"leah",name:"Leah",g:"pelican",vibe:"Earthy artist who lives off foraging and wood carving.",
+ pal:[P("#6E8B4E","Fern"),P("#8C5E3C","Walnut"),P("#D9B88F","Birch"),P("#B84A39","Rosehip"),P("#E8E1C9","Canvas")],
+ moods:["earthy","quiet","handmade","rustic"],map:["Forest","Hardwood and forageables right outside the door."],
+ rooms:{bedroom:["A cabin bedroom with a quilt, rough wood floors and a reading lamp.","Plants hanging everywhere over a woven rug."],living:["A studio with half-carved sculptures and an easel.","A long farmhouse table set with salad and wine."],outdoors:["A wildflower meadow with carved stumps for seats.","A forager's garden of mushrooms, berry bushes and herbs."]},
+ gifts:["Goat Cheese","Poppyseed Muffin","Salad","Stir Fry","Truffle","Vegetable Medley","Wine"],kw:["log","plant","Oak","Birch","rug","painting"], 
+ effort:{bedroom:"med",living:"med",outdoors:"low"},
+ tw:["Leah's gallery opening in the shed.","A treehouse-style farm made all of wood.","A winter carving workshop by the fire."]},
+{id:"maru",name:"Maru",g:"pelican",vibe:"Brilliant tinkerer and nurse who loves stars and machines.",
+ pal:[P("#2C3E66","Midnight"),P("#4CB8C4","Circuit"),P("#D9DDE3","Steel"),P("#F2B33D","Spark"),P("#8E3B5E","Mulberry")],
+ moods:["clever","tidy","starry","techy"],map:["Hill-top","High ground for a telescope and room for a lab."],
+ rooms:{bedroom:["Star-chart walls and a telescope aimed out the window.","A neat desk with a half-built robot."],living:["A lab bench with jars, beakers and a computer.","A bright, clean kitchen with a rhubarb pie cooling."],outdoors:["An observatory hill with a telescope and lanterns.","A tidy crop grid run entirely by sprinklers and machines."]},
+ gifts:["Battery Pack","Cauliflower","Cheese Cauliflower","Diamond","Gold Bar","Iridium Bar","Miner's Treat","Pepper Poppers","Radioactive Bar","Rhubarb Pie","Strawberry"],kw:["telescope","Modern","lamp","star"], 
+ effort:{bedroom:"med",living:"high",outdoors:"med"},
+ tw:["Maru's backyard rocket launch site.","A greenhouse turned science lab.","A quiet, white, plant-filled home for her days off."]},
+{id:"penny",name:"Penny",g:"pelican",vibe:"Gentle teacher who loves books and a tidy home.",
+ pal:[P("#4E6E58","Schoolhouse"),P("#E7D3A8","Parchment"),P("#A0453C","Apple Red"),P("#7A93B8","Chalk Blue"),P("#6B4F3A","Desk Oak")],
+ moods:["gentle","orderly","bookish","warm"],map:["Standard","Open space for a simple, tidy layout."],
+ rooms:{bedroom:["Bookshelves floor to ceiling with a reading chair.","A neat bed with one vase of poppies."],living:["A schoolroom corner with small tables for lessons.","A kitchen with a red-plate collection on display."],outdoors:["A melon patch beside a story-time picnic spot.","A tidy flower garden with a bench under a tree."]},
+ gifts:["Diamond","Emerald","Melon","Poppy","Poppyseed Muffin","Red Plate","Roots Platter","Sandfish","Tom Kha Soup"],kw:["bookcase","lamp","Country","rug","red"], 
+ effort:{bedroom:"med",living:"low",outdoors:"low"},
+ tw:["Penny's library cottage.","A playground farm for the town's kids.","A quiet tea garden."]},
+{id:"krobus",name:"Krobus",g:"pelican",roommate:true,vibe:"Gentle shadow person from the sewers, and a loyal roommate.",
+ pal:[P("#1E1B2E","Void"),P("#4B3F72","Shadow"),P("#7C9A6E","Sewer Moss"),P("#C9B458","Lantern"),P("#6E6A78","Cobblestone")],
+ moods:["mysterious","gentle","nocturnal","odd"],map:["Wilderness","Night monsters will make a shadow feel at home."],
+ rooms:{bedroom:["A dim room with dark rugs and a few lanterns.","A display shelf of void eggs."],living:["A tunnel-like hall with stone floors.","A pantry stocked with void mayonnaise."],outdoors:["A void chicken coop.","A lantern path through a dark grove."]},
+ gifts:["Diamond","Iridium Bar","Pumpkin","Void Egg","Void Mayonnaise","Wild Horseradish"],kw:["dark","torch","stone","purple"], 
+ effort:{bedroom:"low",living:"low",outdoors:"low"},
+ tw:["His sewer shop rebuilt above ground.","A full-moon garden.","A shadow-friendly winter home."]}
+/* ---------- Ridgeside ---------- */
+,{id:"ian",name:"Ian",g:"ridgeside",vibe:"Hardworking handyman at Odd Jobs who sends his pay home and is learning to read.",
+ pal:[P("#6B4F3A","Tool Leather"),P("#3F6E8C","Work Denim"),P("#D8A55A","Sawdust"),P("#EDE6D6","Fresh Snow"),P("#8C3B32","Plaid Red")],
+ moods:["hardworking","humble","sturdy","homey"],map:["Standard","Practical and easy to work, like him."],
+ rooms:{bedroom:["A sturdy bed with a plaid blanket and a letter from home pinned up.","A shelf of beginner reading books for his studies."],living:["A workshop corner with tools and half-finished wood carvings.","An ice cream stand in the kitchen."],outdoors:["A strawberry patch, his favorite fruit.","A woodpile and carving bench under a tree."]},
+ gifts:["Ice Cream","Fish Taco","Eggplant","Strawberry","Autumnal Serenity"],kw:["log","Oak","bookcase","workbench","Country"], 
+ effort:{bedroom:"low",living:"med",outdoors:"low"},
+ tw:["A study nook built for his museum lessons.","Winter, his favorite season: a snowy cabin with a fire.","A carpenter's workshop in the barn."]},
+{id:"jeric",name:"Jeric",g:"ridgeside",vibe:"Stylish, competitive owner of Blooming Hill Farm with an eye for fashion.",
+ pal:[P("#2F2A4A","Velvet"),P("#C8A04A","Gold Trim"),P("#E2E0D8","Linen"),P("#7A3B5E","Plum"),P("#4E7A4B","Pasture")],
+ moods:["stylish","flashy","ambitious","rustic-chic"],map:["Four Corners","Room to show off a farm that beats everyone else's."],
+ rooms:{bedroom:["A wardrobe corner with mannequins and fabric.","Velvet and gold accents, like a boutique hotel."],living:["A sewing studio for his 'high-class garments'.","A date-night table set for Pika's takeout."],outdoors:["A horse paddock and fancy stable for a horse like Turbo.","A farm-stand shop front by the gate."]},
+ gifts:["Pomegranate","Spaghetti","Duck Feather","Blue Jazz","Winter Night Feast"],kw:["Luxury","gold","mannequin","dresser","rug"], 
+ effort:{bedroom:"high",living:"high",outdoors:"high"},
+ tw:["'Best farm in the valley' show day.","A fashion runway down the barn aisle.","A picnic date on the hill."]},
+{id:"june",name:"June",g:"ridgeside",vibe:"Quiet traveling pianist who loves fall and plays the hotel lobby.",
+ pal:[P("#1C1C22","Black Coat"),P("#EDEAE4","Snowfall"),P("#A8613A","Maple"),P("#6E1F2B","Wine"),P("#C9A86A","Brass Pedal")],
+ moods:["elegant","autumnal","melancholy","refined"],map:["Forest","Fall foliage, which he swears beats spring flowers."],
+ rooms:{bedroom:["Black and cream, minimal, with one good lamp.","A window seat for listening to rain on the roof."],living:["A piano as the centerpiece of the room.","An espresso bar."],outdoors:["An apple orchard in fall color.","A small chicken run, a nod to his grandmother's farm."]},
+ gifts:["Spicy Eel","Triple Shot Espresso","Coffee Bean","Apple","Bone Flute","Wild Apple Juice"],kw:["piano","dark","lamp","Luxury","black"], 
+ effort:{bedroom:"low",living:"med",outdoors:"low"},
+ tw:["A hotel-lobby lounge at home.","A winter concert night.","His grandmother's farm, remembered."]},
+{id:"kenneth",name:"Kenneth",g:"ridgeside",vibe:"Electrician and inventor who tinkers with robots and loves good lighting.",
+ pal:[P("#2A3B4C","Wire Navy"),P("#F2C14E","Bulb"),P("#5E8C6A","Pine"),P("#B6623A","Copper"),P("#E4E1D8","Insulator")],
+ moods:["inventive","cozy","techy","outdoorsy"],map:["Hill-top","The Ridge is where he goes to think; a cliffside farm suits him."],
+ rooms:{bedroom:["String lights everywhere, wired neatly.","A tinkering desk with a little robot."],living:["A workshop with tools, wire spools and blueprints.","A pizza night table."],outdoors:["A lamp-lined path that glows at night.","Strawberry beds beside a row of humming machines."]},
+ gifts:["Pizza","Strawberry","Refined Quartz","Slate","Summer Mountain Blessing"],kw:["lamp","light","Modern","torch"], 
+ effort:{bedroom:"low",living:"med",outdoors:"med"},
+ tw:["The farm lit up for Winter Star, with no power surge.","His robot-helper workshop.","A glowing beach night inspired by the moonlight jellies."]},
+{id:"philip",name:"Philip",g:"ridgeside",vibe:"Physical therapist with a secret geeky side: comics and jellyfish facts.",
+ pal:[P("#D64545","Comic Red"),P("#2E5EAA","Hero Blue"),P("#F4D35E","Pow Yellow"),P("#EAEAEA","Scrubs"),P("#3B7A57","Track Green")],
+ moods:["energetic","nerdy","caring","bright"],map:["Standard","Flat ground for a running track around the farm."],
+ rooms:{bedroom:["Comic shelves and a superhero poster.","A tidy, healthy space with a yoga mat."],living:["A home gym with barbells.","A reading couch for comics and hot cocoa."],outdoors:["A jogging path looping the whole farm.","Tulip and radish beds."]},
+ gifts:["Trout Soup","Earth Crystal","Radish","Tulip","Springtime Primetime"],kw:["bookcase","rug","red","TV","Retro"], 
+ effort:{bedroom:"low",living:"med",outdoors:"low"},
+ tw:["A comic convention in the farmhouse.","A gentle rehab garden for patients.","Movie night at home."]},
+{id:"sean",name:"Sean",g:"ridgeside",vibe:"Pun-loving prankster at Odd Jobs who's great with the village kids.",
+ pal:[P("#F28C28","Prank Orange"),P("#4BA3C3","Sky"),P("#F2E86D","Lemon"),P("#5C7A3A","Grass"),P("#3A2E39","Hoodie")],
+ moods:["playful","goofy","warm","outdoorsy"],map:["Meadowlands","Lots of grass for lying around and cloud-gazing."],
+ rooms:{bedroom:["A bright, messy room with prank props on the shelf.","A lazy hammock-style corner."],living:["A game corner for babysitting the village kids.","A hashbrown breakfast bar."],outdoors:["A cloud-gazing hill with a picnic blanket.","A green-bean trellis maze."]},
+ gifts:["Green Bean","Holiday Ice","Highland Butterwort","Summit Snowbell","Springtime Primetime"],kw:["rug","Tropical","orange","arcade"], 
+ effort:{bedroom:"low",living:"low",outdoors:"low"},
+ tw:["Prank-war headquarters.","A playground farm for the kids.","A lazy summer day camp."]},
+{id:"shiro",name:"Shiro",g:"ridgeside",vibe:"Former paratrooper rebuilding his strength, devoted to his brother Yuuma.",
+ pal:[P("#3F4A3C","Olive Drab"),P("#E9E3D3","Washi"),P("#9C4A3E","Persimmon"),P("#5B7C99","Tide"),P("#C7B48A","Dune")],
+ moods:["calm","healing","simple","resilient"],map:["Beach","His therapy and his happiest moments happen by the sea."],
+ rooms:{bedroom:["Low, easy-to-reach furniture and soft rugs.","A calm room with screens and very little clutter."],living:["A stretching corner with a comfortable recliner.","A family table with Yuuma's drawings on the wall."],outdoors:["A fishing dock and campfire for beach camping nights.","A quiet stone garden with smooth, level paths."]},
+ gifts:["Crystal Fruit","Survival Burger","Fruit Salad","Red Mushroom","Winter Night Feast"],kw:["rug","lantern","campfire","stone","plant"], 
+ effort:{bedroom:"low",living:"low",outdoors:"med"},
+ tw:["An overnight beach campout at home.","A garden designed for gentle walks.","A bedroom for Yuuma next door."]},
+{id:"alissa",name:"Alissa",g:"ridgeside",vibe:"Shy orchard farmer with a secret talent for singing and songwriting.",
+ pal:[P("#E9A6A6","Blossom"),P("#6E9A4E","Orchard Leaf"),P("#F3A93C","Clementine"),P("#7C5C8C","Melody"),P("#F4EEE4","Petal")],
+ moods:["sweet","shy","musical","fruity"],map:["Standard","Space for long rows of fruit trees."],
+ rooms:{bedroom:["A songwriting desk with a microphone and lyric notes.","Soft pink florals and a pressed-flower frame."],living:["A small stage corner for living-room concerts.","A pancake breakfast nook."],outdoors:["An orchard with a swing in the biggest tree.","A pumpkin patch to sing to."]},
+ gifts:["Pancakes","Pumpkin","Emerald","Ridgeside Clementine","Springtime Primetime"],kw:["flower","pink","piano","rug"], 
+ effort:{bedroom:"med",living:"med",outdoors:"low"},
+ tw:["Her first concert, on the farm.","A harvest-fair booth.","An orchard picnic on a sunny day."]},
+{id:"blair",name:"Blair",g:"ridgeside",vibe:"Outdoorsy fisher like her mom, and Sean's partner in prank wars.",
+ pal:[P("#2F6F8F","Lake"),P("#D96C3B","Lure Orange"),P("#E8D8B0","Canvas"),P("#5A7247","Reed"),P("#2B2B2B","Tackle Black")],
+ moods:["sporty","playful","outdoorsy","lakeside"],map:["Riverland","Water on every side for the best fishing spots."],
+ rooms:{bedroom:["Tackle boxes and trophy fish on the walls.","A pile of prank supplies 'hidden' under the bed."],living:["A wall of fish tanks.","A fish-fry kitchen."],outdoors:["A fishing pier with crab pots.","A ring of fish ponds."]},
+ kw:["tank","fish","rug","blue"], 
+ effort:{bedroom:"low",living:"med",outdoors:"low"},
+ tw:["Fishing-tournament headquarters.","Prank war with Sean, farm edition.","A lakeside campsite."]},
+{id:"corine",name:"Corine",g:"ridgeside",vibe:"Waitress at Pika's who dreams of becoming a ninja apprentice.",
+ pal:[P("#1E2A38","Shinobi Navy"),P("#B23A48","Crimson Sash"),P("#D9C9A3","Rice Paper"),P("#4F6D44","Bamboo"),P("#F2A541","Lantern")],
+ moods:["energetic","action","disciplined","playful"],map:["Hill-top","Cliffs to train on."],
+ rooms:{bedroom:["Training mats and a target on the wall.","A rack of wooden practice weapons."],living:["A diner-style kitchen, a nod to Pika's.","A dojo floor for practice."],outdoors:["An obstacle course of stumps and stones.","A hidden garden with stone lanterns."]},
+ kw:["lantern","Diner","stone","rug"], 
+ effort:{bedroom:"med",living:"med",outdoors:"high"},
+ tw:["Ninja training camp.","A diner of her own.","Night patrol path with lanterns."]},
+{id:"flor",name:"Flor",g:"ridgeside",vibe:"Warm, slightly clumsy counseling graduate who loves books and museums.",
+ pal:[P("#8E6C8A","Mauve"),P("#F1E3C8","Library Paper"),P("#5D7B6F","Sage Ink"),P("#C47F5A","Teacup"),P("#3B3A4A","Ink")],
+ moods:["bookish","gentle","warm","cozy"],map:["Standard","A calm, simple farm to read in."],
+ rooms:{bedroom:["A reading nook stuffed with books and blankets.","Teacups on every surface."],living:["A counseling corner: two armchairs and plants.","A museum-style display of artifacts."],outdoors:["A quiet garden with benches.","A reading tent among the flowers."]},
+ kw:["bookcase","armchair","plant","rug"], 
+ effort:{bedroom:"low",living:"med",outdoors:"low"},
+ tw:["A little library for the whole valley.","A museum wing in the farmhouse.","A calm-down garden."]},
+{id:"kiarra",name:"Kiarra",g:"ridgeside",vibe:"Graphic designer and activist who fights for animals and against corporate greed.",
+ pal:[P("#2B2D42","Ink"),P("#EF476F","Poster Pink"),P("#FFD166","Marker"),P("#118AB2","Print Blue"),P("#4C9A6A","Sprout")],
+ moods:["bold","graphic","principled","animal-loving"],map:["Meadowlands","Room for lots of very happy animals."],
+ rooms:{bedroom:["A poster wall and a drawing desk.","A bold geometric rug."],living:["A design studio with prints drying.","A rescue corner with pet beds and bowls."],outdoors:["An animal sanctuary with roomy barns.","A community garden anyone can use."]},
+ kw:["rug","painting","pet bowl","Modern"], 
+ effort:{bedroom:"med",living:"med",outdoors:"med"},
+ tw:["A protest-poster print shop.","Animal sanctuary open day.","A farm without a single Joja item."]},
+{id:"maddie",name:"Maddie",g:"ridgeside",vibe:"Stern lab assistant at the water lab who secretly loves cute things and jellyfish.",
+ pal:[P("#1F3A5F","Deep Water"),P("#7FD1E0","Jelly Glow"),P("#F4B6C2","Cute Pink"),P("#E8ECEF","Lab White"),P("#4A5568","Slate")],
+ moods:["cute","aquatic","scientific","secretly soft"],map:["Riverland","Water everywhere for a researcher."],
+ rooms:{bedroom:["Plushies hiding behind a serious-looking desk.","A glowing blue fish-tank night light."],living:["A water lab with tanks and sample jars.","A coral and nautilus display shelf."],outdoors:["A pond lit to glow like moonlight jellies.","Fish ponds in a neat grid."]},
+ gifts:["Salad","Blackberry Cobbler","Coral","Nautilus Fossil","Autumnal Serenity"],kw:["tank","blue","pink","Junimo"], 
+ effort:{bedroom:"low",living:"med",outdoors:"med"},
+ tw:["Moonlight-jelly night at home.","A hidden room of cute overload.","A research station on the beach."]},
+{id:"ysabelle",name:"Ysabelle",g:"ridgeside",vibe:"Hotel receptionist and former ballet prodigy rediscovering dance.",
+ pal:[P("#F2C6D0","Tutu Pink"),P("#2E3A59","Stage Navy"),P("#E7DFD4","Satin"),P("#B08D57","Gilt"),P("#8A9BA8","Pewter")],
+ moods:["graceful","elegant","nostalgic","poised"],map:["Standard","A clean canvas for formal gardens."],
+ rooms:{bedroom:["A ballet barre and a full-length mirror.","Satin pinks and framed recital photos."],living:["A small dance-studio floor.","A front room styled like a hotel lobby."],outdoors:["A garden stage for dancing.","A rose garden around a fountain."]},
+ kw:["pink","Luxury","rug","fountain"], 
+ effort:{bedroom:"med",living:"med",outdoors:"high"},
+ tw:["Her comeback recital.","A grand hotel at home.","A moonlit garden waltz."]},
+{id:"anton",name:"Anton",g:"ridgeside",u:true,vibe:"Former architect taking a break, fueled by energy drinks.",
+ pal:[P("#3C4A57","Blueprint"),P("#E9EEF2","Drafting White"),P("#F2C744","Energy Can"),P("#7E8C6A","Olive"),P("#B5652E","Rust")],
+ moods:["modern","laid-back","structured","clever"],map:["Four Corners","Four quadrants to plan like a blueprint."],
+ rooms:{bedroom:["A drafting table covered in blueprints.","A comfy slacker couch."],living:["Clean modern lines and grey wood.","Model buildings on the shelves."],outdoors:["A symmetrical formal garden.","Architect-planned paths and plazas."]},
+ kw:["Modern","lamp","grey","desk"], 
+ effort:{bedroom:"med",living:"med",outdoors:"med"},
+ tw:["Anton designs the farmhouse of his dreams.","A rooftop-style terrace.","Game night with Paula."]},
+{id:"bryle",name:"Bryle",g:"ridgeside",u:true,vibe:"The Governor's security agent and a part-time detective.",
+ pal:[P("#1B1F2A","Suit Black"),P("#8C9AA6","Steel"),P("#A6192E","Badge Red"),P("#D8D2C4","Case File"),P("#3E5641","Holster")],
+ moods:["stoic","protective","disciplined","noir"],map:["Hill-top","A lookout over everything."],
+ rooms:{bedroom:["A detective's corkboard and a desk lamp.","A spartan, tidy bed."],living:["A home gym with a punching bag.","A noir study in dark wood."],outdoors:["A training yard.","A lookout post on the hill."]},
+ kw:["dark","lamp","desk","Luxury"], 
+ effort:{bedroom:"low",living:"med",outdoors:"med"},
+ tw:["A detective agency office.","The Governor's guest house.","A boxing gym barn."]},
+{id:"daia",name:"Daia",g:"ridgeside",u:true,vibe:"Scholarly, playful scout for the Cult of the Lady with the Red Tail.",
+ pal:[P("#2C1F2E","Night"),P("#C0392B","Red Tail"),P("#E5D3B3","Scroll"),P("#4A6B5A","Forest Shade"),P("#D4AF37","Gold Thread")],
+ moods:["mysterious","scholarly","playful","mystical"],map:["Forest","Deep woods for a hidden shrine."],
+ rooms:{bedroom:["A scroll library and a candlelit desk.","Red and black hanging fabrics."],living:["A small shrine corner.","A map table for scouting plans."],outdoors:["A hidden forest shrine.","A red lantern trail through the trees."]},
+ kw:["candle","red","lantern","bookcase"], 
+ effort:{bedroom:"med",living:"med",outdoors:"high"},
+ tw:["A secret archive.","A festival of red lanterns.","A scout's forest camp."]},
+{id:"faye",name:"Faye",g:"ridgeside",u:true,vibe:"Waitress at Pika's and aspiring fashion designer who sells clothes from home.",
+ pal:[P("#F4C7C3","Peony"),P("#2F2F3A","Chic Black"),P("#E9D8B4","Champagne"),P("#7FA7A3","Mint Silk"),P("#A35C7A","Raspberry")],
+ moods:["chic","creative","girly","aspirational"],map:["Standard","Room for a shop and a runway."],
+ rooms:{bedroom:["A mood-board wall of fabric swatches.","Mannequins in the corner."],living:["A boutique storefront in the front room.","A sketch desk beside dress forms."],outdoors:["A runway path through the garden.","Flower beds for dyes and inspiration."]},
+ kw:["mannequin","dresser","pink","Luxury","rug"], 
+ effort:{bedroom:"med",living:"high",outdoors:"med"},
+ tw:["Her first fashion show.","A boutique farm.","A designer's winter collection."]},
+{id:"irene",name:"Irene",g:"ridgeside",u:true,vibe:"Chef-school trained cook for the Amethyne family.",
+ pal:[P("#E3D5B8","Flour"),P("#8A3324","Paprika"),P("#4F6B3A","Basil"),P("#D9A441","Butter"),P("#2E2E2E","Cast Iron")],
+ moods:["culinary","refined","warm","generous"],map:["Standard","Space for a huge kitchen garden."],
+ rooms:{bedroom:["A warm, simple room with cookbooks.","Herb pots along the windowsill."],living:["A chef's kitchen that takes over the house.","A formal dining room for manor-style dinners."],outdoors:["A kitchen garden with every vegetable.","A long outdoor dinner table."]},
+ kw:["table","plant","Luxury","Country"], 
+ effort:{bedroom:"low",living:"high",outdoors:"med"},
+ tw:["A farm-to-table restaurant.","A cooking-class barn.","A harvest feast for the whole village."]},
+{id:"jio",name:"Jio",g:"ridgeside",u:true,vibe:"Masked elven ninja who guards the Ridge Forest and loves movies.",
+ pal:[P("#1E2B24","Ridge Pine"),P("#5A3E6B","Elven Violet"),P("#C7C2B6","Mist"),P("#9B2D20","Ember"),P("#6F7F3A","Lichen")],
+ moods:["secretive","mystical","disciplined","wild"],map:["Forest","Woods to watch over."],
+ rooms:{bedroom:["A minimal room behind a 'secret' bookcase.","Ninja tools on the wall."],living:["A movie-night setup, since he loves films.","A dark-wood dojo."],outdoors:["A hidden forest watch post.","A misty grove with stone lanterns."]},
+ kw:["dark","TV","lantern","stone"], 
+ effort:{bedroom:"low",living:"med",outdoors:"med"},
+ tw:["A hidden ninja house.","Movie marathon night.","Training Corine in the yard."]},
+{id:"paula",name:"Paula",g:"ridgeside",u:true,vibe:"Army medic back home at Ridgeside Clinic, and Anton's old rival.",
+ pal:[P("#4B5D3A","Army Green"),P("#F2F0EA","Gauze"),P("#B5523B","Field Rust"),P("#6D7B8D","Dog Tag"),P("#E3C567","Medal")],
+ moods:["practical","caring","tough","orderly"],map:["Standard","Orderly and efficient."],
+ rooms:{bedroom:["A footlocker and a neatly made bed.","A medal shadow box."],living:["A first-aid station in the kitchen.","A game corner for her rivalry with Anton."],outdoors:["An obstacle-course training yard.","A herb garden."]},
+ kw:["rug","Country","green","chest"], 
+ effort:{bedroom:"low",living:"low",outdoors:"med"},
+ tw:["A field hospital camp.","A competitive game-day farm.","A quiet off-duty garden."]},
+{id:"zayne",name:"Zayne",g:"ridgeside",u:true,vibe:"Heir to the Amethyne family and a well-traveled ambassador.",
+ pal:[P("#3B2E5A","Amethyne"),P("#C9A54C","Signet Gold"),P("#F0EBE3","Marble"),P("#2F4F4F","Slate Green"),P("#8C2F39","Claret")],
+ moods:["regal","worldly","formal","refined"],map:["Hill-top","A manor on the high ground."],
+ rooms:{bedroom:["A manor bedroom with gold accents.","A travel trunk under a world map."],living:["A study for diplomatic letters.","A grand dining hall."],outdoors:["A formal hedge garden with a fountain.","A grand entrance lined with lamps."]},
+ kw:["Luxury","gold","King","bookcase","purple"], 
+ effort:{bedroom:"med",living:"high",outdoors:"high"},
+ tw:["An ambassador's reception.","A manor estate farm.","Souvenirs from his travels."]}
+];
+const byId = Object.fromEntries(SP.map(s=>[s.id,s]));
+const ROOM_LABELS = {bedroom:"Bedroom",living:"Kitchen & living room",outdoors:"Outdoors"};
+const $ = s=>document.querySelector(s);
+
+let state = {sel:"sebastian", filter:"all", pick:{bedroom:0,living:0,outdoors:0}, season:"Spring", twist:0, designed:new Set()};
+try{ const s = localStorage.getItem("ssb-sel"); if(s && byId[s]) state.sel = s; const z=localStorage.getItem("ssb-season"); if(SEASONS[z]) state.season=z; }catch(e){}
+
+/* ---------- Favorites ---------- */
+let favorites = [];
+try{ const raw = localStorage.getItem("ssb-favs"); if(raw) favorites = JSON.parse(raw); }catch(e){}
+function saveFavs(){ try{ localStorage.setItem("ssb-favs", JSON.stringify(favorites)); }catch(e){} updateFavBadge(); }
+function updateFavBadge(){ const b=$("#fav-badge"); b.textContent=favorites.length?favorites.length:""; }
+function favMatch(f,id){ return f.spouse===id && f.idx===state.pick.bedroom%2 && f.pickLiving===state.pick.living%2 && f.pickOutdoors===state.pick.outdoors%2; }
+function isFavorited(spouseId){ return favorites.some(f=>favMatch(f,spouseId)); }
+function toggleFav(){
+  const s = byId[state.sel]; if(!s) return;
+  // Get the current room ideas
+  const rooms = {};
+  for(const k of Object.keys(ROOM_LABELS)){ rooms[k] = s.rooms[k][state.pick[k]%2]; }
+  const exists = favorites.findIndex(f=>favMatch(f,s.id));
+  if(exists>=0){
+    favorites.splice(exists,1);
+    toast(`Removed "${s.name}" from saved ideas`);
+  } else {
+    favorites.push({spouse:s.id, name:s.name, idx:state.pick.bedroom%2, pickLiving:state.pick.living%2, pickOutdoors:state.pick.outdoors%2, rooms, season:state.season, timestamp:Date.now()});
+    toast(`Saved "${s.name}" to ideas ♥`);
+  }
+  saveFavs(); renderCard();
+}
+function renderFavorites(){
+  const list=$("#fav-list");
+  if(!favorites.length){ list.innerHTML=`<div class="fav-empty"><b>No saved ideas yet</b>Tap the ♥ button on any spouse card to save it here.</div>`; return; }
+  list.innerHTML = favorites.map((f,i)=>{
+    const s=byId[f.spouse]; if(!s) return "";
+    const dots=s.pal.slice(0,4).map(p=>`<i style="background:${p[0]}"></i>`).join("");
+    return `<div class="fav-item">
+      <div class="fav-item-head">
+        <strong><button class="open-fav" data-open="${i}"><span class="dot-sm">${dots}</span>${esc(f.name)}</button></strong>
+        <button class="remove-fav" data-fi="${i}">✕</button>
+      </div>
+      <p><em>Bed:</em> ${esc(f.rooms.bedroom)}</p>
+      <p><em>Living:</em> ${esc(f.rooms.living)}</p>
+      <p><em>Outdoors:</em> ${esc(f.rooms.outdoors)}</p>
+      <small>Season: ${esc(f.season)} · Saved ${new Date(f.timestamp).toLocaleDateString()}</small>
+    </div>`;
+  }).join("");
+}
+$("#fav-close").addEventListener("click",closeFavPanel);
+$("#fav-overlay").addEventListener("click",closeFavPanel);
+$("#fab-fav").addEventListener("click",()=>{ renderFavorites(); $("#fav-panel").classList.add("open"); $("#fav-overlay").classList.add("open"); });
+function closeFavPanel(){ $("#fav-panel").classList.remove("open"); $("#fav-overlay").classList.remove("open"); }
+$("#fav-list").addEventListener("click",e=>{
+  const b=e.target.closest("[data-fi]");
+  const o=e.target.closest("[data-open]");
+  if(o){ const f=favorites[+o.dataset.open]; if(f&&byId[f.spouse]){ closeFavPanel(); show("inspire"); state.sel=f.spouse; state.pick={bedroom:f.idx,living:f.pickLiving,outdoors:f.pickOutdoors}; state.season=f.season||state.season; renderRoster(); renderCard(); applySeason(); } return; }
+  if(b){ const i=parseInt(b.dataset.fi); if(!isNaN(i)){ favorites.splice(i,1); saveFavs(); renderFavorites(); toast("Removed from saved ideas"); } }
+});
+
+function dot(s){ return `<span class="dot" aria-hidden="true">${s.pal.slice(0,4).map(p=>`<i style="background:${p[0]}"></i>`).join("")}</span>`; }
+function textOn(hex){ const n=parseInt(hex.slice(1),16),r=n>>16,g=n>>8&255,b=n&255; return (0.299*r+0.587*g+0.114*b)>150?"#1d1b22":"#fbfaf7"; }
+function esc(t){ return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function renderRoster(){
+  const rc=document.getElementById('roster-current'); if(rc) rc.textContent=byId[state.sel].name;
+  const list = SP.filter(s=> state.filter==="all" || (state.filter==="todo" ? !state.designed.has(s.id) : s.g===state.filter));
+  const groups = [["pelican","Pelican Town"],["ridgeside","Ridgeside Village"]];
+  $("#roster").innerHTML = groups.map(([g,label])=>{
+    const items = list.filter(s=>s.g===g);
+    if(!items.length) return "";
+    return `<div class="group-label">${label}</div><div class="names">${items.map(s=>
+      `<button class="name" data-id="${s.id}" aria-current="${s.id===state.sel}">${dot(s)}<span>${s.name}</span>${state.designed.has(s.id)?'<span class="done" title="Designed">✓</span>':""}</button>`).join("")}</div>`;
+  }).join("") || `<p class="hint">Every spouse has a finished farm. Nice work!</p>`;
+}
+
+function effortBadge(level){
+  const cls = level==="low"?"low":level==="med"?"med":"high";
+  const label = level==="low"?"Easy":level==="med"?"Moderate":"Elaborate";
+  return `<span class="effort ${cls}" title="${label} effort">${label}</span>`;
+}
+function modTags(mods){
+  if(!mods||!mods.length) return "";
+  return `<div class="mod-note">${mods.map(m=>`<span><span class="mod-tag">MOD</span> ${esc(m)}</span>`).join(" · ")}</div>`;
+}
+
+function renderCard(){
+  const s = byId[state.sel];
+  const where = s.g==="pelican" ? "Pelican Town" : "Ridgeside Village";
+  const tags = [s.roommate?'<span class="tag">Roommate</span>':"", s.u?'<span class="tag">Unlockable</span>':"", state.designed.has(s.id)?'<span class="tag" style="color:var(--leaf)">Designed ✓</span>':""].join("");
+  const rooms = Object.keys(ROOM_LABELS).map(k=>{
+    const eff = s.effort && s.effort[k] ? effortBadge(s.effort[k]) : "";
+    return `<div class="room"><span class="lbl">${ROOM_LABELS[k]} ${eff}</span><p>${esc(s.rooms[k][state.pick[k]%2])}</p><button class="reroll" data-room="${k}">Another idea</button></div>`;
+  }).join("");
+  const gifts = s.gifts ? `<div class="gifts">${s.gifts.map(g=>`<span class="gift">${esc(g)}</span>`).join("")}</div><p class="hint">Set these out on tables and shelves as decor. Loved gifts make great display pieces.</p>`
+    : `<p class="hint" style="margin:0">Check the <a href="https://ridgesidevillage.wiki.gg/wiki/${s.name}" target="_blank" rel="noopener">Ridgeside Village wiki</a> for ${s.name}'s loved gifts, then display them as decor.</p>`;
+  const favOn = isFavorited(s.id);
+  $("#card").innerHTML = `
+    <div class="card-head">
+      <div class="eyebrow">${where}${tags}</div>
+      <h2>${s.name}</h2>
+      <p class="vibe">${esc(s.vibe)}</p>
+    </div>
+    <div class="swatches" role="list" aria-label="Palette">${s.pal.map(p=>`<button class="sw" role="listitem" data-hex="${p[0]}" style="background:${p[0]};color:${textOn(p[0])}" title="Copy ${p[0]}">${esc(p[1])}<small>${p[0]}</small></button>`).join("")}</div>
+    <div class="card-body">
+      <div class="room-preview"><canvas id="room" width="96" height="54" role="img" aria-label="Pixel-art bedroom painted in ${s.name}'s palette, ${state.season} view out the window"></canvas><div class="room-cap" id="room-cap"></div></div>
+      <div class="moods">${s.moods.map(m=>`<span class="mood">${m}</span>`).join("")}</div>
+      <div class="sec"><h3>Farm map<span class="rule"></span></h3><div class="map"><b>${s.map[0]}</b><span>${esc(s.map[1])}</span></div></div>
+      <div class="sec"><h3>Room by room<span class="rule"></span></h3>
+        <div class="rooms">${rooms}</div>
+        <button class="btn sm" id="randomize-all" title="Randomize all three rooms at once">🎲 Randomize all</button>
+      </div>
+      <div class="sec"><h3>Loved gifts on display<span class="rule"></span></h3>${gifts}</div>
+      <div class="sec"><h3>Seasonal version<span class="rule"></span></h3>
+        <div class="seasons" role="group" aria-label="Season">${Object.keys(SEASONS).map(x=>`<button class="chip" data-season="${x}" aria-pressed="${x===state.season}">${x}</button>`).join("")}</div>
+        <p class="season-text">${SEASONS[state.season]} Keep the signature piece: <em>${esc(s.rooms.outdoors[0].replace(/\.$/,"").toLowerCase())}</em>.</p></div>
+      <div class="sec"><h3>What if…<span class="rule"></span></h3>
+        <div class="twist"><p>${esc(s.tw[state.twist%s.tw.length])}</p><button class="reroll" id="twist">Next</button></div></div>
+      <div class="sec"><h3>Item spawner search terms<span class="rule"></span></h3>
+        <div class="search-row">${s.kw.map(k=>`<button class="kw" data-kw="${esc(k)}">${esc(k)}</button>`).join("")}</div>
+        <p class="hint">Type these into the cheat menu's item search to find matching furniture fast. Tap one to copy it.</p></div>
+    </div>
+    <div class="card-foot">
+      <span>Ideas are inspired by each character's personality and home, not copied from the game. Farms you add are saved on this device only.</span>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn sm" id="print-card" title="Print this spouse card">🖨 Print</button>
+        <button class="btn sm" id="to-portfolio">Add ${s.name}'s farm to the portfolio</button>
+        <button class="fav-toggle ${favOn?'on':''}" id="fav-btn" title="Save this idea" aria-pressed="${favOn}">${favOn?"♥ Saved":"♥ Save"}</button>
+      </div>
+    </div>`;
+  drawRoom(s);
+}
+
+/* ---------- Pixel room preview (drawn from scratch, recolored per palette) ---------- */
+function hexRgb(h){const n=parseInt(h.slice(1),16);return [n>>16,n>>8&255,n&255];}
+function rgbHex(c){return "#"+c.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,"0")).join("");}
+function shade(h,k){const c=hexRgb(h);return rgbHex(k<1?c.map(v=>v*k):c.map(v=>v+(255-v)*(k-1)));}
+function mix(a,b,t){const x=hexRgb(a),y=hexRgb(b);return rgbHex(x.map((v,i)=>v+(y[i]-v)*t));}
+function lum(h){const [r,g,b]=hexRgb(h);return .299*r+.587*g+.114*b;}
+function sat(h){const c=hexRgb(h);return Math.max(...c)-Math.min(...c);}
+function roles(pal){
+  const s=[...pal].sort((a,b)=>lum(a[0])-lum(b[0]));
+  const mids=s.slice(1,4); const rug=mids.reduce((a,b)=>sat(b[0])>sat(a[0])?b:a);
+  const rest=mids.filter(x=>x!==rug).sort((a,b)=>lum(b[0])-lum(a[0]));
+  return {floor:s[0],trim:s[4],wall:rest[0],blanket:rest[1],rug};
+}
+const OUTSIDE={
+  Spring:{sky:"#BFE3F2",ground:"#7FBF6A",dots:["#F6B7C9","#FFFFFF"],n:14},
+  Summer:{sky:"#8FD0F0",ground:"#5DA548",dots:["#F7D23E"],n:3},
+  Fall:{sky:"#E8C99A",ground:"#B9833C",dots:["#D9662B","#C0392B","#E9A23B"],n:16},
+  Winter:{sky:"#D9E4EE",ground:"#F4F7FA",dots:["#FFFFFF"],n:18}
+};
+function drawRoom(s){
+  const cv=document.getElementById("room"); if(!cv) return;
+  const x=cv.getContext("2d"); const R=roles(s.pal);
+  const W=R.wall[0],T=R.trim[0],F=R.floor[0],B=R.blanket[0],G=R.rug[0];
+  const r=(c,a,b,w,h)=>{x.fillStyle=c;x.fillRect(a,b,w,h);};
+  let seed=[...s.id].reduce((a,c)=>a*31+c.charCodeAt(0),7)>>>0;
+  const rnd=()=>((seed=(seed*1103515245+12345)>>>0)%1000)/1000;
+  // wall + stripes
+  r(W,0,0,96,34); for(let i=3;i<96;i+=6) r(shade(W,.93),i,0,2,34);
+  r(shade(W,.8),0,30,96,1);
+  // trim + floor planks
+  r(T,0,33,96,2); r(shade(T,.75),0,35,96,1);
+  r(F,0,36,96,18);
+  for(let y=39;y<54;y+=4){ r(shade(F,.82),0,y,96,1); const off=(y/4|0)%2?7:0; for(let sx=off;sx<96;sx+=14) r(shade(F,.82),sx,y-3,1,3); }
+  r(shade(F,1.12),0,36,96,1);
+  // window with seasonal view
+  const o=OUTSIDE[state.season];
+  r(shade(T,.8),7,5,23,21); r(T,8,6,21,19); r(o.sky,9,7,19,17);
+  r(o.ground,9,18,19,6); r(shade(o.ground,.85),9,18,19,1);
+  if(state.season!=="Winter"){ r("#5B4632",13,13,2,6); r(state.season==="Fall"?"#C46A2A":state.season==="Spring"?"#7BB063":"#3F8A3A",10,8,8,6); }
+  if(state.season==="Summer") r("#F7D23E",23,9,3,3);
+  for(let i=0;i<o.n;i++){ r(o.dots[i%o.dots.length],9+Math.floor(rnd()*19),7+Math.floor(rnd()*(state.season==="Spring"?8:16)),1,1); }
+  r(T,18,7,1,17); r(T,9,15,19,1);
+  r(shade(T,.9),6,25,25,2); // sill
+  // painting
+  r(shade(F,.7),60,7,16,12); r(T,61,8,14,10); r(G,62,9,12,8); r(B,64,12,8,4); r(shade(B,1.3),68,10,3,3);
+  // bed
+  r(shade(F,.65),34,21,4,19); r(shade(F,.8),35,22,2,17);
+  r(T,38,30,26,6); r(shade(T,.85),38,35,26,1);
+  r(shade(T,1.08),39,28,7,3); r(shade(T,.9),39,30,7,1);
+  r(B,46,29,18,7); r(shade(B,.78),46,35,18,1); r(shade(B,1.18),46,29,18,1);
+  for(let i=48;i<64;i+=4) r(shade(B,.88),i,30,1,5);
+  r(shade(F,.65),37,36,2,4); r(shade(F,.65),62,36,2,4);
+  // nightstand + lamp
+  r(shade(F,.7),66,31,8,9); r(shade(F,.85),67,32,6,3); r(shade(F,.55),69,33,2,1);
+  r(shade(T,.6),69,27,2,4); r(mix(G,"#FFE9A8",.55),67,22,6,5); r(shade(mix(G,"#FFE9A8",.55),.85),67,26,6,1);
+  x.globalAlpha=.08; r("#FFE9A8",65,21,10,10); r("#FFE9A8",66,20,8,12); x.globalAlpha=1;
+  // plant
+  r(shade(G,.7),82,36,7,6); r(shade(G,.55),82,41,7,1);
+  [[84,28,3,8],[81,30,3,6],[87,29,3,7],[83,25,2,4],[86,26,2,3]].forEach(([a,b,w,h],i)=>r(i%2?"#3E7A36":"#57A04A",a,b,w,h));
+  // rug
+  r(shade(G,.7),24,44,46,8); r(G,25,45,44,6);
+  for(let i=27;i<68;i+=5) r(shade(G,1.25),i,46,2,4);
+  r(shade(G,.85),25,50,44,1);
+  // shadow under bed
+  x.globalAlpha=.15; r("#000",36,40,30,2); x.globalAlpha=1;
+  const cap=document.getElementById("room-cap");
+  if(cap) cap.innerHTML=[["Walls",R.wall],["Floor",R.floor],["Rug",R.rug],["Bedding",R.blanket],["Trim",R.trim]].map(([k,p])=>`<span><i style="background:${p[0]}"></i>${k}: ${esc(p[1])}</span>`).join("");
+}
+
+/* ---------- Seasonal page theme ---------- */
+const WASH={Spring:"240,150,180",Summer:"110,185,230",Fall:"225,135,55",Winter:"140,175,220"};
+function applySeason(){
+  const c=WASH[state.season];
+  $("#wash").style.background=`radial-gradient(60% 45% at 0% 0%, rgba(${c},.16), transparent 70%), radial-gradient(55% 40% at 100% 100%, rgba(${c},.12), transparent 70%)`;
+  try{localStorage.setItem("ssb-season",state.season)}catch(e){}
+  initFx();
+}
+const fx=$("#fx"), fctx=fx.getContext("2d"); let parts=[], fxRaf=0;
+const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)");
+function isDark(){ return lum(getComputedStyle(document.documentElement).getPropertyValue("--bg").trim()||"#ffffff")<100; }
+function initFx(){
+  const dpr=Math.min(devicePixelRatio||1,2); fx.width=innerWidth*dpr; fx.height=innerHeight*dpr; fctx.setTransform(dpr,0,0,dpr,0,0);
+  const n=innerWidth<600?14:26, S=state.season;
+  parts=Array.from({length:n},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,v:.25+Math.random()*.5,a:Math.random()*6.28,s:2+Math.random()*3,c:Math.random()}));
+  cancelAnimationFrame(fxRaf); fctx.clearRect(0,0,innerWidth,innerHeight);
+  if(reduceMotion.matches) return;
+  const dark=isDark();
+  const draw=()=>{
+    fctx.clearRect(0,0,innerWidth,innerHeight);
+    for(const p of parts){
+      p.a+=.02;
+      if(S==="Summer"){ p.y-=p.v*.4; p.x+=Math.sin(p.a)*.4; if(p.y<-10){p.y=innerHeight+10;p.x=Math.random()*innerWidth;}
+        fctx.globalAlpha=(.35+.35*Math.sin(p.a*2))*(dark?1:.7); fctx.fillStyle=dark?"#F7E27A":"#D9A520"; fctx.beginPath(); fctx.arc(p.x,p.y,p.s*.6,0,6.28); fctx.fill(); continue; }
+      p.y+=p.v*(S==="Winter"?.7:1); p.x+=Math.sin(p.a)*(S==="Winter"?.3:.7);
+      if(p.y>innerHeight+10){p.y=-10;p.x=Math.random()*innerWidth;}
+      fctx.save(); fctx.translate(p.x,p.y); fctx.rotate(p.a);
+      if(S==="Winter"){ fctx.globalAlpha=dark?.6:.75; fctx.fillStyle=dark?"#E8F0F8":"#A9BCD0"; fctx.fillRect(-p.s/2,-p.s/2,p.s,p.s); }
+      else if(S==="Spring"){ fctx.globalAlpha=.55; fctx.fillStyle=p.c<.5?"#F2A3BC":"#F7C8D6"; fctx.fillRect(-p.s,-p.s/2,p.s*2,p.s); }
+      else { fctx.globalAlpha=.6; fctx.fillStyle=p.c<.33?"#D9662B":p.c<.66?"#B8432C":"#D9A23B"; fctx.fillRect(-p.s,-p.s/2,p.s*2,p.s); fctx.fillRect(-p.s/2,-p.s,p.s,p.s*2); }
+      fctx.restore();
+    }
+    fctx.globalAlpha=1; fxRaf=requestAnimationFrame(draw);
+  };
+  draw();
+}
+addEventListener("resize",()=>{clearTimeout(initFx._t);initFx._t=setTimeout(initFx,200);});
+reduceMotion.addEventListener?.("change",initFx);
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",initFx);
+document.addEventListener("visibilitychange",()=>{ if(document.hidden) cancelAnimationFrame(fxRaf); else initFx(); });
+
+function select(id){
+  document.querySelector('.roster').classList.remove('open'); document.getElementById('roster-toggle').setAttribute('aria-expanded','false');
+  state.sel=id; state.pick={bedroom:Math.random()<.5?0:1,living:0,outdoors:0}; state.twist=0;
+  try{localStorage.setItem("ssb-sel",id)}catch(e){}
+  renderRoster(); renderCard();
+  if(innerWidth<=820) $("#card").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+}
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1600); }
+async function copy(text){ try{ await navigator.clipboard.writeText(text); toast(`Copied "${text}"`);}catch(e){ toast(text); } }
+
+document.addEventListener("click",e=>{
+  const n=e.target.closest(".name"); if(n){select(n.dataset.id);return;}
+  const f=e.target.closest("[data-f]"); if(f){state.filter=f.dataset.f;document.querySelectorAll("[data-f]").forEach(b=>b.setAttribute("aria-pressed",b===f));renderRoster();return;}
+  const r=e.target.closest("[data-room]"); if(r){state.pick[r.dataset.room]++;renderCard();return;}
+  const se=e.target.closest("[data-season]"); if(se){state.season=se.dataset.season;renderCard();applySeason();return;}
+  if(e.target.id==="twist"){state.twist++;renderCard();return;}
+  const kw=e.target.closest(".kw"); if(kw){copy(kw.dataset.kw);return;}
+  const sw=e.target.closest(".sw"); if(sw){copy(sw.dataset.hex);return;}
+  if(e.target.id==="to-portfolio"){show("portfolio"); openForm(state.sel); return;}
+  const tab=e.target.closest("[data-view]"); if(tab){show(tab.dataset.view);return;}
+  if(e.target.id==="fav-btn"){toggleFav();return;}
+  if(e.target.id==="print-card"){window.print();return;}
+});
+
+// Randomize all rooms at once
+document.addEventListener("click",e=>{
+  if(e.target.id==="randomize-all"){
+    const before=[state.pick.bedroom%2,state.pick.living%2,state.pick.outdoors%2].join();
+    let next; do{ next=[0,1,2].map(()=>Math.random()<.5?0:1); }while(next.join()===before);
+    [state.pick.bedroom,state.pick.living,state.pick.outdoors]=next;
+    renderCard(); toast("New mix of room ideas");
+  }
+});
+
+// Surprise buttons
+$("#surprise").addEventListener("click",()=>{
+  select(SP[Math.floor(Math.random()*SP.length)].id);
+});
+$("#surprise-undesign").addEventListener("click",()=>{
+  const pool = SP.filter(s=>!state.designed.has(s.id) && s.id!==state.sel);
+  const from = pool.length ? pool : SP.filter(s=>s.id!==state.sel);
+  select(from[Math.floor(Math.random()*from.length)].id);
+});
+
+function show(view){
+  $("#view-inspire").hidden = view!=="inspire"; $("#view-portfolio").hidden = view!=="portfolio";
+  document.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===view));
+  try{ history.replaceState(null,"","#"+view);}catch(e){}
+}
+
+/* ---------- Portfolio ---------- */
+let db=null, assets=null, farms=[], canWrite=false, confirmId=null;
+$("#pbar").innerHTML = SP.map(()=>"<i></i>").join("");
+$("#pf-filter").innerHTML += SP.map(s=>`<option value="${s.id}">${s.name}</option>`).join("");
+$("#f-spouse").innerHTML = SP.map(s=>`<option value="${s.id}">${s.name}</option>`).join("");
+$("#pf-filter").addEventListener("change",renderGallery);
+
+function renderProgress(){
+  state.designed = new Set(farms.map(f=>f.spouse).filter(id=>byId[id]));
+  $("#pcount").textContent = state.designed.size;
+  [...$("#pbar").children].forEach((i,k)=>{ i.className = state.designed.has(SP[k].id)?"on":""; i.title=SP[k].name; });
+}
+function renderGallery(){
+  const f = $("#pf-filter").value;
+  const list = farms.filter(x=>!f || x.spouse===f);
+  if(!db){ $("#gallery").innerHTML = `<div class="empty" style="grid-column:1/-1"><b>The shared gallery isn't available here</b>Open this page signed in to Claude to see and add finished farms.</div>`; return; }
+  if(!list.length){
+    $("#gallery").innerHTML = `<div class="empty" style="grid-column:1/-1"><b>${f?`No ${byId[f].name} farm yet`:"No farms yet"}</b>${canWrite?"Finished a spouse farm? Add screenshots with the button above.":"Finished farms will show up here."}</div>`;
+    return;
+  }
+  $("#gallery").innerHTML = list.map(x=>{
+    const s = byId[x.spouse]; const imgs = (x.images||[]);
+    return `<article class="farm">
+      <div class="shots">${imgs.length?imgs.map(id=>`<img src="${BLOB[id]||""}" alt="${esc(x.title)} screenshot" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'Screenshot unavailable'}))">`).join(""):'<div class="ph">No screenshot</div>'}</div>
+      <div class="farm-body">
+        <h4>${esc(x.title)}</h4>
+        <div class="farm-meta"><span>${s?dot(s):""} ${s?s.name:"Unknown"}</span><span>${esc(x.season||"")}</span><span>${esc(x.map||"")} farm</span>${imgs.length>1?`<span>${imgs.length} photos, swipe</span>`:""}</div>
+        ${x.notes?`<p>${esc(x.notes)}</p>`:""}
+        ${canWrite?`<div class="farm-actions">${confirmId===x.id?`<button class="btn danger" data-del-yes="${x.id}">Delete for good</button><button class="btn" data-del-no>Keep</button>`:`<button class="btn" data-del="${x.id}">Remove</button>`}</div>`:""}
+      </div></article>`;
+  }).join("");
+}
+$("#gallery").addEventListener("click",async e=>{
+  const d=e.target.closest("[data-del]"); if(d){confirmId=d.dataset.del;renderGallery();return;}
+  if(e.target.closest("[data-del-no]")){confirmId=null;renderGallery();return;}
+  const y=e.target.closest("[data-del-yes]");
+  if(y){ const farm=farms.find(f=>f.id===y.dataset.delYes); confirmId=null;
+    try{ await db.collection("farms").doc(farm.id).delete();
+      if(assets) for(const id of farm.images||[]){ try{await assets.delete(id);}catch(_){}}
+      toast("Farm removed"); }catch(err){ toast("Couldn't remove that farm. Try again."); } }
+});
+
+function openForm(spouse){
+  if(!canWrite){ toast("Only people with edit access can add farms."); return; }
+  $("#farm-form").reset(); $("#f-status").textContent=""; if(spouse) $("#f-spouse").value=spouse;
+  $("#dlg").showModal();
+}
+$("#add-farm").addEventListener("click",()=>openForm(state.sel));
+$("#f-cancel").addEventListener("click",()=>$("#dlg").close());
+$("#farm-form").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const files=[...$("#f-files").files].slice(0,4), st=$("#f-status"), btn=$("#f-save");
+  const title=$("#f-title").value.trim(); if(!title){st.textContent="Give the farm a name.";return;}
+  btn.disabled=true; const ids=[];
+  try{
+    for(let i=0;i<files.length;i++){
+      st.textContent=`Uploading screenshot ${i+1} of ${files.length}…`;
+      const r = await assets.upload(files[i]); ids.push(r.id);
+    }
+    st.textContent="Saving…";
+    await db.collection("farms").add({spouse:$("#f-spouse").value,title,season:$("#f-season").value,map:$("#f-map").value,notes:$("#f-notes").value.trim(),images:ids,createdAt:Date.now()});
+    $("#dlg").close(); $("#pf-filter").value=""; toast("Farm added to the portfolio");
+  }catch(err){
+    const c=err&&err.code;
+    st.textContent = c==="too_large"?"A screenshot is over 20 MB. Try a smaller one."
+      : c==="unsupported_type"?"Screenshots need to be PNG, JPG, WebP or GIF."
+      : c==="quota_or_state"||c==="quota_exceeded"?"The gallery is out of space. Remove an older farm first."
+      : "Couldn't save the farm. Check your connection and try again.";
+  }finally{ btn.disabled=false; }
+});
+
+/* ---------- Local storage (IndexedDB) for the standalone copy ---------- */
+const BLOB={};
+const idb=new Promise((res,rej)=>{ const q=indexedDB.open("spouse-style-book",1);
+  q.onupgradeneeded=()=>{ q.result.createObjectStore("farms",{keyPath:"id"}); q.result.createObjectStore("blobs"); };
+  q.onsuccess=()=>res(q.result); q.onerror=()=>rej(q.error); });
+function tx(store,mode,fn){ return idb.then(d=>new Promise((res,rej)=>{ const t=d.transaction(store,mode); const r=fn(t.objectStore(store)); t.oncomplete=()=>res(r&&r.result); t.onerror=()=>rej(t.error); })); }
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const listeners=[];
+async function refresh(){
+  const all=(await tx("farms","readonly",s=>s.getAll()))||[];
+  all.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  for(const f of all) for(const id of f.images||[]) if(!BLOB[id]){ const b=await tx("blobs","readonly",s=>s.get(id)); if(b) BLOB[id]=URL.createObjectURL(b); }
+  const snap={docs:all.map(f=>({id:f.id,data:()=>{const {id,...r}=f;return r;}}))};
+  listeners.forEach(fn=>fn(snap));
+}
+const localDb={collection:()=>({
+  add:async data=>{ await tx("farms","readwrite",s=>s.put({id:uid(),...data})); refresh(); },
+  doc:id=>({delete:async()=>{ await tx("farms","readwrite",s=>s.delete(id)); refresh(); }}),
+  orderBy(){return this;},
+  onSnapshot(fn){ listeners.push(fn); refresh(); return ()=>{}; }
+})};
+const localAssets={
+  upload:async file=>{ if(!/^image\//.test(file.type)) throw {code:"unsupported_type"}; if(file.size>20*1024*1024) throw {code:"too_large"};
+    const id=uid(); await tx("blobs","readwrite",s=>s.put(file,id)); return {id}; },
+  delete:async id=>{ await tx("blobs","readwrite",s=>s.delete(id)); if(BLOB[id]){URL.revokeObjectURL(BLOB[id]);delete BLOB[id];} }
+};
+const b64=b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(b);});
+$("#export").addEventListener("click",async()=>{
+  const all=(await tx("farms","readonly",s=>s.getAll()))||[];
+  if(!all.length){toast("No farms to back up yet");return;}
+  const images={};
+  for(const f of all) for(const id of f.images||[]){ const b=await tx("blobs","readonly",s=>s.get(id)); if(b) images[id]=await b64(b); }
+  const blob=new Blob([JSON.stringify({app:"spouse-style-book",version:1,farms:all,images})],{type:"application/json"});
+  const name=`spouse-style-book-backup-${new Date().toISOString().slice(0,10)}.json`;
+  const file=new File([blob],name,{type:"application/json"});
+  if(navigator.canShare && navigator.canShare({files:[file]}) && matchMedia("(pointer:coarse)").matches){
+    try{ await navigator.share({files:[file],title:"Spouse Style Book backup"}); toast("Backup ready"); }catch(err){ if(err&&err.name!=="AbortError") toast("Couldn't share the backup. Try again."); }
+    return;
+  }
+  const a=document.createElement("a"); a.href=URL.createObjectURL(file); a.download=name;
+  document.body.appendChild(a); a.click(); a.remove(); toast("Backup saved to your Downloads");
+});
+$("#import").addEventListener("change",async e=>{
+  const file=e.target.files[0]; e.target.value=""; if(!file) return;
+  try{
+    const data=JSON.parse(await file.text()); if(data.app!=="spouse-style-book") throw 0;
+    const have=new Set(((await tx("farms","readonly",s=>s.getAll()))||[]).map(f=>f.id)); let n=0;
+    for(const [id,url] of Object.entries(data.images||{})){ const b=await (await fetch(url)).blob(); await tx("blobs","readwrite",s=>s.put(b,id)); }
+    for(const f of data.farms||[]) if(!have.has(f.id)){ await tx("farms","readwrite",s=>s.put(f)); n++; }
+    refresh(); toast(n?`Restored ${n} farm${n>1?"s":""}`:"Those farms are already here");
+  }catch(err){ toast("That file isn't a Spouse Style Book backup."); }
+});
+try{ navigator.storage&&navigator.storage.persist&&navigator.storage.persist(); }catch(e){}
+db=localDb; assets=localAssets; canWrite=true; $("#add-farm").hidden=false;
+renderGallery();
+db.collection("farms").orderBy("createdAt","desc").onSnapshot(snap=>{
+  farms=snap.docs.map(x=>({id:x.id,...x.data()}));
+  renderProgress(); renderGallery(); renderRoster(); renderCard();
+});
+
+renderRoster(); renderCard(); applySeason(); updateFavBadge();
+document.getElementById('roster-toggle').addEventListener('click',e=>{ const r=document.querySelector('.roster'); const o=r.classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded',o); });
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
+(function(){
+  const ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  const installed=navigator.standalone||matchMedia("(display-mode: standalone)").matches;
+  let dismissed=false; try{dismissed=localStorage.getItem("ssb-tip")==="1";}catch(e){}
+  if(ios&&!installed&&!dismissed&&location.protocol.startsWith("http")) $("#install-tip").hidden=false;
+  $("#install-tip-x").addEventListener("click",()=>{ $("#install-tip").hidden=true; try{localStorage.setItem("ssb-tip","1");}catch(e){} });
+})();
+if(location.hash==="#portfolio") show("portfolio");
+</script>
+
+</body>
+</html>
