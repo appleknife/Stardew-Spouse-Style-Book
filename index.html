@@ -79,6 +79,19 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .tag{font:600 11px var(--body);letter-spacing:.06em;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--ink);text-transform:uppercase}
 .card h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,44px);margin:0;line-height:1}
 .vibe{font-size:17px;margin:2px 0 0;max-width:62ch}
+/* Character art */
+.card-who{display:flex;align-items:center;gap:16px}
+.who-text{min-width:0;display:grid;gap:6px}
+.portrait{flex:none;width:72px;height:72px;border-radius:10px;object-fit:cover;object-position:50% 22%;background:var(--sunk);box-shadow:inset 0 0 0 1px var(--line)}
+.portrait.pixel{image-rendering:pixelated}
+@media (max-width:480px){.card-who{gap:12px}.portrait{width:58px;height:58px;border-radius:8px}}
+/* Real room reference, sits under the painted mock-up */
+.real-room{display:flex;gap:14px;align-items:center;background:var(--sunk);border-radius:8px;padding:12px 14px}
+.real-room img{flex:none;width:96px;height:auto;display:block;border-radius:6px;image-rendering:pixelated;box-shadow:inset 0 0 0 1px var(--line);background:var(--surface)}
+.real-room p{margin:0;font-size:13px;color:var(--muted)}
+.real-room b{color:var(--ink);font-weight:600}
+.site-foot{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.6}
+.site-foot p{margin:0 0 6px}
 .swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));height:auto}
 .sw{padding:42px 10px 10px;font:500 12px var(--body);display:flex;flex-direction:column;justify-content:flex-end;min-height:96px;cursor:pointer;border:0;text-align:left}
 .sw small{opacity:.8;font-variant-numeric:tabular-nums}
@@ -307,6 +320,11 @@ body{padding-top:env(safe-area-inset-top,0px)}
     </div>
     <div class="gallery" id="gallery"></div>
   </section>
+
+  <footer class="site-foot">
+    <p><b>About the pictures.</b> The portraits and spouse-room photos come from the <a href="https://stardewvalleywiki.com/" target="_blank" rel="noopener">Stardew Valley Wiki</a> and the <a href="https://ridgesidevillage.wiki.gg/" target="_blank" rel="noopener">Ridgeside Village Wiki</a>. They are © ConcernedApe and the Ridgeside Village team, and they are here for reference only, in a free fan project. The room mock-ups, palettes and decorating ideas are original to this site.</p>
+    <p>Stardew Valley is © ConcernedApe. Ridgeside Village is a fan mod by Rafseazz. This site is unofficial and not affiliated with or endorsed by either. No ads, no accounts, no money. Anything you save stays on your device.</p>
+  </footer>
 </div>
 
 <dialog id="dlg">
@@ -693,15 +711,26 @@ function renderCard(){
   const gifts = s.gifts ? `<div class="gifts">${s.gifts.map(g=>`<span class="gift">${esc(g)}</span>`).join("")}</div><p class="hint">Set these out on tables and shelves as decor. Loved gifts make great display pieces.</p>`
     : `<p class="hint" style="margin:0">Check the <a href="https://ridgesidevillage.wiki.gg/wiki/${s.name}" target="_blank" rel="noopener">Ridgeside Village wiki</a> for ${s.name}'s loved gifts, then display them as decor.</p>`;
   const favOn = isFavorited(s.id);
+  // Pelican Town villagers have beach and winter outfits on the wiki; Ridgeside ones don't.
+  const seasonArt = s.g==='pelican' && (state.season==='Summer'||state.season==='Winter') ? (state.season==='Summer'?'-beach':'-winter') : '';
+  const realRoom = `<div class="real-room">
+        <img src="assets/img/rooms/${s.id}.webp" alt="${esc(s.name)}'s spouse room in game, seen from above" loading="lazy" width="84" height="126" onerror="this.closest('.real-room').remove()">
+        <p><b>What it really looks like.</b> ${esc(s.name)}'s spouse room, straight from the game. The mock-up above is our redecorating idea for it, not a copy.</p></div>`;
   $("#card").innerHTML = `
     <div class="card-head">
       <div class="eyebrow">${where}${tags}</div>
-      <h2>${s.name}</h2>
-      <p class="vibe">${esc(s.vibe)}</p>
+      <div class="card-who">
+        <img class="portrait ${s.g==='pelican'?'pixel':''}" src="assets/img/portraits/${s.id}${seasonArt}.webp" alt="Portrait of ${esc(s.name)}${seasonArt?' in '+esc(state.season.toLowerCase())+' clothes':''}" width="72" height="72" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='assets/img/portraits/${s.id}.webp'}else{this.remove()}">
+        <div class="who-text">
+          <h2>${s.name}</h2>
+          <p class="vibe">${esc(s.vibe)}</p>
+        </div>
+      </div>
     </div>
     <div class="swatches" role="list" aria-label="Palette">${s.pal.map(p=>`<button class="sw" role="listitem" data-hex="${p[0]}" style="background:${p[0]};color:${textOn(p[0])}" title="Copy ${p[0]}">${esc(p[1])}<small>${p[0]}</small></button>`).join("")}</div>
     <div class="card-body">
       <div class="room-preview"><canvas id="room" width="96" height="54" role="img" aria-label="Pixel-art bedroom painted in ${s.name}'s palette, ${state.season} view out the window"></canvas><div class="room-cap" id="room-cap"></div></div>
+      ${realRoom}
       <div class="moods">${s.moods.map(m=>`<span class="mood">${m}</span>`).join("")}</div>
       <div class="sec"><h3>Farm map<span class="rule"></span></h3><div class="map"><b>${s.map[0]}</b><span>${esc(s.map[1])}</span></div></div>
       <div class="sec"><h3>Room by room<span class="rule"></span></h3>
@@ -719,7 +748,7 @@ function renderCard(){
         <p class="hint">Type these into the cheat menu's item search to find matching furniture fast. Tap one to copy it.</p></div>
     </div>
     <div class="card-foot">
-      <span>Ideas are inspired by each character's personality and home, not copied from the game. Farms you add are saved on this device only.</span>
+      <span>Room ideas are ours, inspired by each character's home. The portrait and real-room photo come from the wikis and belong to their creators. Farms you add are saved on this device only.</span>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="btn sm" id="print-card" title="Print this spouse card">🖨 Print</button>
         <button class="btn sm" id="to-portfolio">Add ${s.name}'s farm to the portfolio</button>
